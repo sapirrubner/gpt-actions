@@ -1,12 +1,12 @@
 openapi: 3.0.1
 info:
   title: Google Sheets Logger
-  description: Plugin לשליחת תיעוד ל-Google Sheets דרך Webhook
+  description: Plugin לשליחת תיעוד ל-Google Sheets דרך Cloudflare Worker
   version: 1.0.0
 servers:
-  - url: https://sapirrubner.github.io/gpt-actions
+  - url: https://gpt-to-sheets.sapirubner10.workers.dev
 paths:
-  /log:
+  /:
     post:
       summary: שלח תיעוד
       operationId: sendLog
@@ -17,20 +17,13 @@ paths:
             schema:
               type: object
               properties:
-                date:
-                  type: string
-                title:
-                  type: string
-                content:
-                  type: string
-                category:
-                  type: string
-                source:
-                  type: string
-                mode:
-                  type: string
-                track:
-                  type: string
+                date: { type: string }
+                title: { type: string }
+                content: { type: string }
+                category: { type: string }
+                source: { type: string }
+                mode: { type: string }
+                track: { type: string }
       responses:
         '200':
           description: נשלח בהצלחה
