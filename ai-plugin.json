@@ -2,8 +2,8 @@
   "schema_version": "v1",
   "name_for_model": "sheet_logger",
   "name_for_human": "Send to Google Sheets",
-  "description_for_model": "שלח תובנה או רפלקציה בפורמט JSON לגיליון Google Sheets. רפלקציות לא נשלחות לגיליון בפועל.",
-  "description_for_human": "שליחה אוטומטית של תובנות לגיליון Google Sheets",
+  "description_for_model": "שלח תובנה או בצע רפלקציה על בסיס נתונים מהגיליון. רפלקציות לא נשלחות, אלא קוראות מידע לצורך ניתוח.",
+  "description_for_human": "תיעוד תובנות ושליפת תובנות ישנות לצורך רפלקציה מערכתית",
   "auth": {
     "type": "none"
   },

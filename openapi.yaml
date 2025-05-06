@@ -1,18 +1,18 @@
 openapi: 3.1.0
 info:
   title: Google Sheets Logger
-  description: Plugin לשליחת תובנות ל-Google Sheets ויצירת רפלקציות מערכתיות בלבד.
+  description: Plugin לשליחת תיעוד ל-Google Sheets ולקריאת תובנות קיימות לצורך רפלקציה מערכתית.
   version: 1.0.2
 servers:
   - url: https://gpt-to-sheets.sapirubner10.workers.dev
 paths:
   /:
     post:
-      summary: שלח תובנה או רפלקציה ל-Google Sheets
+      summary: שלח תובנה או רפלקציה
       operationId: sendLog
       description: >
-        פעולה זו שולחת תובנות בפורמט JSON לגיליון Google Sheets.
-        רפלקציות (type: reflection) נשמרות ברמת GPT בלבד ואינן נשלחות לגיליון בפועל.
+        תובנות נשלחות לגיליון (type: log).
+        רפלקציות (type: reflection) אינן נשלחות — רק נשמרות ברמת GPT.
       requestBody:
         required: true
         content:
@@ -22,33 +22,24 @@ paths:
               properties:
                 type:
                   type: string
-                  enum: ["log", "reflection"]
-                  description: סוג הרשומה – תובנה רגילה או רפלקציה
+                  enum: [log, reflection]
                 date:
                   type: string
-                  description: תאריך הרישום (YYYY-MM-DD)
                 title:
                   type: string
-                  description: כותרת קצרה לתובנה (רק עבור log)
                 content:
                   type: string
-                  description: גוף התובנה או הטקסט (רק עבור log)
                 category:
                   type: string
-                  description: תחום חיים (SELF, FLOW וכו’) (רק עבור log)
                 source:
                   type: string
-                  description: מקור התובנה (Reflection, Critique וכו’) (log בלבד)
                 mode:
                   type: string
-                  description: מצב החיים הפעיל (רק עבור log)
                 track:
                   type: string
-                  enum: ["כן", "לא"]
-                  description: האם לעקוב (log בלבד)
+                  enum: [כן, לא]
                 engines_used:
                   type: object
-                  description: מיפוי הפעלות מנועים (reflection בלבד)
                   properties:
                     Verifier: { type: string }
                     Critique: { type: string }
@@ -56,25 +47,34 @@ paths:
                     Innovation: { type: string }
                 inactive_engines:
                   type: array
-                  description: מנועים שלא הופעלו (reflection בלבד)
                   items: { type: string }
                 ignored_suggestions:
                   type: array
-                  description: הצעות שלא בוצעו (reflection בלבד)
                   items: { type: string }
                 patterns:
                   type: array
-                  description: דפוסים חוזרים (reflection בלבד)
                   items: { type: string }
                 suggestion:
                   type: string
-                  description: הצעה לשיפור (reflection בלבד)
                 insight:
                   type: string
-                  description: תובנה מרכזית לשבוע הבא (reflection בלבד)
               required:
                 - type
                 - date
       responses:
         "200":
-          description: נשלח בהצלחה או נשמר ברמה מערכתית
+          description: נשלח בהצלחה או נשמר ברמת GPT בלבד
+
+  /read:
+    get:
+      summary: קרא תובנות מהגיליון
+      operationId: readLogs
+      responses:
+        "200":
+          description: רשימת תובנות קיימות בפורמט JSON
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
