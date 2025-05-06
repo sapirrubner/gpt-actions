@@ -19,7 +19,9 @@ paths:
               properties:
                 type:
                   type: string
-                  enum: ["log", "reflection"]
+                  enum:
+                    - log
+                    - reflection
                   description: סוג הרשומה – תובנה רגילה או רפלקציה
                 date:
                   type: string
@@ -41,28 +43,37 @@ paths:
                   description: מצב החיים הפעיל (רק עבור log)
                 track:
                   type: string
-                  enum: ["כן", "לא"]
+                  enum:
+                    - כן
+                    - לא
                   description: האם לעקוב (log בלבד)
                 engines_used:
                   type: object
                   description: מיפוי הפעלות מנועים (reflection בלבד)
                   properties:
-                    Verifier: { type: string }
-                    Critique: { type: string }
-                    Reflection: { type: string }
-                    Innovation: { type: string }
+                    Verifier:
+                      type: string
+                    Critique:
+                      type: string
+                    Reflection:
+                      type: string
+                    Innovation:
+                      type: string
                 inactive_engines:
                   type: array
                   description: מנועים שלא הופעלו (reflection בלבד)
-                  items: { type: string }
+                  items:
+                    type: string
                 ignored_suggestions:
                   type: array
                   description: הצעות שלא בוצעו (reflection בלבד)
-                  items: { type: string }
+                  items:
+                    type: string
                 patterns:
                   type: array
                   description: דפוסים חוזרים (reflection בלבד)
-                  items: { type: string }
+                  items:
+                    type: string
                 suggestion:
                   type: string
                   description: הצעה לשיפור (reflection בלבד)
@@ -73,5 +84,5 @@ paths:
                 - type
                 - date
       responses:
-        '200':
+        "200":
           description: נשלח בהצלחה
