@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   title: Google Sheets Logger
   description: Plugin לשליחת תיעוד ל-Google Sheets ולקריאת תובנות קיימות לצורך רפלקציה מערכתית.
-  version: 1.0.2
+  version: 1.0.3
 servers:
   - url: https://gpt-to-sheets.sapirubner10.workers.dev
 paths:
@@ -11,8 +11,8 @@ paths:
       summary: שלח תובנה או רפלקציה
       operationId: sendLog
       description: >
-        תובנות נשלחות לגיליון (type: log).
-        רפלקציות (type: reflection) אינן נשלחות — רק נשמרות ברמת GPT.
+        תובנות (type: log) נשלחות לגיליון Google Sheets.
+        רפלקציות (type: reflection) לא נשלחות — רק נשמרות ברמת GPT.
       requestBody:
         required: true
         content:
@@ -67,7 +67,7 @@ paths:
 
   /read:
     get:
-      summary: קרא תובנות מהגיליון
+      summary: קרא תובנות קיימות מהגיליון
       operationId: readLogs
       responses:
         "200":
