@@ -3,6 +3,8 @@ info:
   title: Google Sheets Logger
   description: Plugin לשליחת תיעוד ל-Google Sheets דרך Webhook
   version: 1.0.0
+servers:
+  - url: https://sapirrubner.github.io/gpt-actions
 paths:
   /log:
     post:
@@ -25,5 +27,3 @@ paths:
       responses:
         '200':
           description: הצלחה
-servers:
-  - url: https://script.google.com/macros/s/AKfycby1XKP13_hDhYMh7C93aBSqL2OXI9NQyyijv_4FLuOsppUGbJkNPrCNps0JurWdLbIYhg/exec
