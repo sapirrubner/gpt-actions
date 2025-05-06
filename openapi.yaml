@@ -1,0 +1,29 @@
+openapi: 3.0.1
+info:
+  title: Google Sheets Logger
+  description: Plugin לשליחת תיעוד ל-Google Sheets דרך Webhook
+  version: 1.0.0
+paths:
+  /log:
+    post:
+      summary: שלח תיעוד
+      operationId: sendLog
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                date: { type: string }
+                title: { type: string }
+                content: { type: string }
+                category: { type: string }
+                source: { type: string }
+                mode: { type: string }
+                track: { type: string }
+      responses:
+        '200':
+          description: הצלחה
+servers:
+  - url: https://script.google.com/macros/s/AKfycby1XKP13_hDhYMh7C93aBSqL2OXI9NQyyijv_4FLuOsppUGbJkNPrCNps0JurWdLbIYhg/exec
