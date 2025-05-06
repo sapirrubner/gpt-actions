@@ -1,8 +1,8 @@
 openapi: 3.1.0
 info:
   title: Google Sheets Logger
-  description: Plugin לשליחת תיעוד ורפלקציה ל-Google Sheets דרך Cloudflare Worker
-  version: 1.0.1
+  description: Plugin לשליחת תובנות ל-Google Sheets ויצירת רפלקציות מערכתיות בלבד.
+  version: 1.0.2
 servers:
   - url: https://gpt-to-sheets.sapirubner10.workers.dev
 paths:
@@ -10,6 +10,9 @@ paths:
     post:
       summary: שלח תובנה או רפלקציה ל-Google Sheets
       operationId: sendLog
+      description: >
+        פעולה זו שולחת תובנות בפורמט JSON לגיליון Google Sheets.
+        רפלקציות (type: reflection) נשמרות ברמת GPT בלבד ואינן נשלחות לגיליון בפועל.
       requestBody:
         required: true
         content:
@@ -19,9 +22,7 @@ paths:
               properties:
                 type:
                   type: string
-                  enum:
-                    - log
-                    - reflection
+                  enum: ["log", "reflection"]
                   description: סוג הרשומה – תובנה רגילה או רפלקציה
                 date:
                   type: string
@@ -43,37 +44,28 @@ paths:
                   description: מצב החיים הפעיל (רק עבור log)
                 track:
                   type: string
-                  enum:
-                    - כן
-                    - לא
+                  enum: ["כן", "לא"]
                   description: האם לעקוב (log בלבד)
                 engines_used:
                   type: object
                   description: מיפוי הפעלות מנועים (reflection בלבד)
                   properties:
-                    Verifier:
-                      type: string
-                    Critique:
-                      type: string
-                    Reflection:
-                      type: string
-                    Innovation:
-                      type: string
+                    Verifier: { type: string }
+                    Critique: { type: string }
+                    Reflection: { type: string }
+                    Innovation: { type: string }
                 inactive_engines:
                   type: array
                   description: מנועים שלא הופעלו (reflection בלבד)
-                  items:
-                    type: string
+                  items: { type: string }
                 ignored_suggestions:
                   type: array
                   description: הצעות שלא בוצעו (reflection בלבד)
-                  items:
-                    type: string
+                  items: { type: string }
                 patterns:
                   type: array
                   description: דפוסים חוזרים (reflection בלבד)
-                  items:
-                    type: string
+                  items: { type: string }
                 suggestion:
                   type: string
                   description: הצעה לשיפור (reflection בלבד)
@@ -85,4 +77,4 @@ paths:
                 - date
       responses:
         "200":
-          description: נשלח בהצלחה
+          description: נשלח בהצלחה או נשמר ברמה מערכתית
