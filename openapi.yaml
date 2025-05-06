@@ -17,13 +17,20 @@ paths:
             schema:
               type: object
               properties:
-                date: { type: string }
-                title: { type: string }
-                content: { type: string }
-                category: { type: string }
-                source: { type: string }
-                mode: { type: string }
-                track: { type: string }
+                date:
+                  type: string
+                title:
+                  type: string
+                content:
+                  type: string
+                category:
+                  type: string
+                source:
+                  type: string
+                mode:
+                  type: string
+                track:
+                  type: string
       responses:
         '200':
-          description: הצלחה
+          description: נשלח בהצלחה
