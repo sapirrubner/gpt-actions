@@ -1,0 +1,17 @@
+{
+  "schema_version": "v1",
+  "name_for_model": "gpt_insights_manager",
+  "name_for_human": "GPT Insights Manager",
+  "description_for_model": "ממשק לשליפת, הוספת, עדכון ומחיקת תובנות מתוך שיחות GPT, כולל ניתוח לפי תאריכים ומנועים.",
+  "description_for_human": "ניהול תובנות מתוך שיחות GPT למעקב פנימי, רפלקציה, סינון לפי מנוע ותאריכים, וזיהוי בוטים מתהווים.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "https://raw.githubusercontent.com/sapirrubner/gpt-actions/main/openapi_final.yaml"
+  },
+  "logo_url": "https://example.com/logo.png",
+  "contact_email": "support@example.com",
+  "legal_info_url": "https://example.com/legal"
+}
