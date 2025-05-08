@@ -1,11 +1,10 @@
-
 openapi: 3.0.0
-servers:
-  - url: https://script.google.com/macros/s/AKfycby1XKP13_hDhYMh7C93aBSqL2OXI9NQyyijv_4FLuOsppUGbJkNPrCNps0JurWdLbIYhg/exec
 info:
   title: MultiLayer GPT Insight API
   description: API for logging, updating, retrieving and deleting insights from the MultiLayer GPT system.
   version: 1.0.0
+servers:
+  - url: https://script.google.com/macros/s/YOUR_SCRIPT_ID_HERE/exec
 
 paths:
   /insight:
@@ -21,6 +20,43 @@ paths:
         '200':
           description: Insight added
 
+    get:
+      summary: Get all insights or one by ID
+      parameters:
+        - in: query
+          name: id
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: type
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: engine
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: relevance_to
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: date_from
+          schema:
+            type: string
+            format: date-time
+          required: false
+      responses:
+        '200':
+          description: A list of insights or one insight
+          content:
+            application/json:
+              schema:
+                type: object
+
     put:
       summary: Update an existing insight
       requestBody:
@@ -34,23 +70,6 @@ paths:
           description: Insight updated
         '404':
           description: Not found
-
-    get:
-      summary: Get all insights or one by ID
-      parameters:
-        - in: query
-          name: id
-          schema:
-            type: string
-          required: false
-          description: The ID of the insight to retrieve
-      responses:
-        '200':
-          description: A list of insights or one insight
-          content:
-            application/json:
-              schema:
-                type: object
 
     delete:
       summary: Delete an insight by ID
@@ -72,38 +91,49 @@ components:
       type: object
       required:
         - id
+        - date
         - type
+        - engine
         - summary
         - context_excerpt
-        - engine
         - relevance_to
         - confidence
-        - significance
         - iteration
+        - source_type
+        - rationale_trace
+        - insight_quality_tags
       properties:
         id:
           type: string
-          example: insight-2025-05-08T22:37:51Z-Critique
-          description: Unique identifier composed of timestamp and engine
+          example: insight-000172
+        date:
+          type: string
+          format: date-time
         type:
           type: string
           enum: [SystemInsight, BotInsight, StyleInsight, ProcessInsight, ResourceInsight]
+        engine:
+          type: string
+          example: Critique
         summary:
           type: string
         context_excerpt:
           type: string
-        engine:
-          type: string
-          example: Critique
         relevance_to:
           type: string
-          example: gpt:emotiva
+          example: gpt:academic
         confidence:
-          type: string
-          enum: [low, medium, high]
-        significance:
           type: string
           enum: [low, medium, high]
         iteration:
           type: string
           enum: [new, repeated, summary]
+        source_type:
+          type: string
+          enum: [user_prompt, meta_reflection, external_trigger, pattern_detection]
+        rationale_trace:
+          type: string
+        insight_quality_tags:
+          type: array
+          items:
+            type: string

@@ -1,17 +1,17 @@
 {
   "schema_version": "v1",
-  "name_for_model": "gpt_insights_manager",
-  "name_for_human": "GPT Insights Manager",
-  "description_for_model": "ממשק לשליפת, הוספת, עדכון ומחיקת תובנות מתוך שיחות GPT, כולל ניתוח לפי תאריכים ומנועים.",
-  "description_for_human": "ניהול תובנות מתוך שיחות GPT למעקב פנימי, רפלקציה, סינון לפי מנוע ותאריכים, וזיהוי בוטים מתהווים.",
+  "name_for_human": "MultiLayer GPT Insight Manager",
+  "name_for_model": "insight_manager",
+  "description_for_human": "תיעוד תובנות חכמות, ניהול רפלקציה, וזיהוי GPTים מתהווים מתוך שיחה.",
+  "description_for_model": "Structured insight logging plugin for ChatGPT. Captures 12 fields: id, date, type, engine, summary, context_excerpt, relevance_to, confidence, iteration, source_type, rationale_trace, insight_quality_tags. Used to manage live memory, internal reflections, and emerging GPT patterns.",
   "auth": {
     "type": "none"
   },
   "api": {
     "type": "openapi",
-    "url": "https://raw.githubusercontent.com/sapirrubner/gpt-actions/main/openapi_final.yaml"
+    "url": "https://raw.githubusercontent.com/sapir-gpt/MultiLayer-GPT/main/openapi_final.yaml"
   },
-  "logo_url": "https://example.com/logo.png",
-  "contact_email": "support@example.com",
-  "legal_info_url": "https://example.com/legal"
+  "logo_url": "https://raw.githubusercontent.com/sapir-gpt/MultiLayer-GPT/main/logo.png",
+  "contact_email": "contact@sapirgpt.com",
+  "legal_info_url": "https://sapirgpt.com/legal"
 }
