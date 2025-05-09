@@ -1,0 +1,123 @@
+
+openapi: 3.0.0
+info:
+  title: GPT Insights API
+  description: API לחיבור בין GPT למערכת ניהול תובנות ב-Google Sheets
+  version: 1.0.3
+servers:
+  - url: https://script.google.com/macros/s/AKfycby1XKP13_hDhYMh7C93aBSqL2OXI9NQyyijv_4FLuOsppUGbJkNPrCNps0JurWdLbIYhg/exec
+paths:
+  /:
+    get:
+      summary: שליפת תובנות
+      description: מחזיר רשימת תובנות לפי סינון.
+      parameters:
+        - in: query
+          name: id
+          schema:
+            type: string
+        - in: query
+          name: type
+          schema:
+            type: string
+        - in: query
+          name: engine
+          schema:
+            type: string
+        - in: query
+          name: relevance_to
+          schema:
+            type: string
+        - in: query
+          name: date_from
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: רשימת תובנות
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    date:
+                      type: string
+                      format: date-time
+                    type:
+                      type: string
+                    summary:
+                      type: string
+                    context_excerpt:
+                      type: string
+                    engine:
+                      type: string
+                    relevance_to:
+                      type: string
+                    confidence:
+                      type: string
+                    significance:
+                      type: string
+                    iteration:
+                      type: string
+
+    post:
+      summary: הוספת תובנה חדשה
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                summary:
+                  type: string
+                context_excerpt:
+                  type: string
+                engine:
+                  type: string
+                relevance_to:
+                  type: string
+                confidence:
+                  type: string
+                significance:
+                  type: string
+                iteration:
+                  type: string
+      responses:
+        '200':
+          description: תובנה נוספה בהצלחה
+
+    put:
+      summary: עדכון תובנה קיימת
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+              additionalProperties: true
+      responses:
+        '200':
+          description: התובנה עודכנה
+
+    delete:
+      summary: מחיקת תובנה
+      parameters:
+        - in: query
+          name: id
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: התובנה נמחקה
