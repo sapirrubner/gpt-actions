@@ -4,7 +4,7 @@ info:
   description: API for logging, updating, retrieving and deleting insights from the MultiLayer GPT system.
   version: 1.0.0
 servers:
-  - url: https://script.google.com/macros/s/YOUR_SCRIPT_ID_HERE/exec
+  - url: https://script.google.com/macros/s/AKfycby1XKP13_hDhYMh7C93aBSqL2OXI9NQyyijv_4FLuOsppUGbJkNPrCNps0JurWdLbIYhg/exec
 
 paths:
   /insight:
