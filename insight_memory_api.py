@@ -20,7 +20,7 @@ def save_data(data):
 @app.route('/insights', methods=['GET'])
 def get_insights():
     data = load_data()
-    return jsonify(data)
+    return jsonify(data.get('insights', []))
 
 @app.route('/insights', methods=['POST'])
 def add_insight():
@@ -34,23 +34,12 @@ def add_insight():
 def delete_insight(insight_id):
     data = load_data()
     original_len = len(data['insights'])
-    data['insights'] = [i for i in data['insights'] if i['id'] != insight_id]
+    data['insights'] = [i for i in data['insights'] if i.get('id') != insight_id]
     if len(data['insights']) < original_len:
         save_data(data)
         return jsonify({"message": "Insight deleted successfully!"})
     else:
         return jsonify({"message": "Insight not found."}), 404
-
-@app.route('/insights/<insight_id>', methods=['PUT'])
-def update_insight(insight_id):
-    update_data = request.json
-    data = load_data()
-    for insight in data['insights']:
-        if insight['id'] == insight_id:
-            insight.update(update_data)
-            save_data(data)
-            return jsonify({"message": "Insight updated successfully!"})
-    return jsonify({"message": "Insight not found."}), 404
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 10000))
