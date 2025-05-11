@@ -1,0 +1,49 @@
+{
+    "insights": [
+        {
+            "id": "insight-0",
+            "date": "2024-05-11 00:00:00",
+            "type": "Bot",
+            "summary": "תוכן מעודכן",
+            "relevance_to": "Time Management",
+            "confidence": "New",
+            "significance": "תוספות נוספות כאן",
+            "readiness": NaN,
+            "iteration_count": NaN,
+            "origin": NaN,
+            "linked_bots": NaN,
+            "tags": NaN,
+            "notes": NaN
+        },
+        {
+            "id": "insight-1",
+            "date": "2025-05-11 00:00:00",
+            "type": "Bot",
+            "summary": "Default Summary",
+            "relevance_to": "General Use",
+            "confidence": NaN,
+            "significance": NaN,
+            "readiness": "New",
+            "iteration_count": NaN,
+            "origin": "Manual Entry",
+            "linked_bots": "None",
+            "tags": "General",
+            "notes": "Auto-generated entry"
+        },
+        {
+            "id": "insight-2",
+            "date": "2025-05-11 17:48:11.269000",
+            "type": "בדיקת POST דרך Postman.",
+            "summary": "TestInsight",
+            "relevance_to": "TestBot",
+            "confidence": "High",
+            "significance": 3,
+            "readiness": "New",
+            "iteration_count": 1.0,
+            "origin": "ManualTest",
+            "linked_bots": "בדיקת POST עם שדות מלאים.",
+            "tags": "Test,Verification",
+            "notes": NaN
+        }
+    ]
+}
