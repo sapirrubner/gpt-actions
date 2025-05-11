@@ -1,0 +1,23 @@
+{
+  "name": "RequestInsightSave",
+  "description": "Requests to save an insight after user approval.",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "summary": { "type": "string", "description": "Concise summary of the insight." },
+      "type": { "type": "string", "enum": ["SystemInsight", "BotInsight", "StyleInsight", "ProcessInsight", "ResourceInsight", "PersonalPreference"], "description": "Insight category." },
+      "relevance_to": { "type": "string", "description": "Bot name or related topic if applicable." },
+      "confidence": { "type": "string", "enum": ["High", "Medium", "Low"], "description": "Confidence level." },
+      "significance": { "type": "string", "description": "Significance score (1-5)." },
+      "readiness": { "type": "string", "enum": ["New", "Maturing", "Ready for Export"], "description": "Readiness status." },
+      "iteration": { "type": "string", "description": "Iteration number." },
+      "source_type": { "type": "string", "description": "Source of the insight." },
+      "rationale_trace": { "type": "string", "description": "Why this insight was saved." },
+      "insight_quality_tags": { "type": "string", "description": "Insight quality tags." }
+    },
+    "required": ["summary", "type"]
+  },
+  "servers": [
+    { "url": "https://script.google.com/macros/s/AKfycbz5SwTnuIoonoW0Whoy_F4D3WoUSL9K9SvbF7zpLITGL2joBiukc70gf4TJF5fEsaUz/exec" }
+  ]
+}
