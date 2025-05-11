@@ -1,2 +1,0 @@
-Webhook URL:
-https://script.google.com/macros/s/AKfycbz5SwTnuIoonoW0Whoy_F4D3WoUSL9K9SvbF7zpLITGL2joBiukc70gf4TJF5fEsaUz/exec
