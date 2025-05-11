@@ -2,6 +2,7 @@
 from flask import Flask, request, jsonify
 import json
 import os
+from collections import Counter
 
 app = Flask(__name__)
 
@@ -13,53 +14,43 @@ def load_data():
     with open(DATA_FILE, 'r', encoding='utf-8') as f:
         return json.load(f)
 
-def save_data(data):
-    with open(DATA_FILE, 'w', encoding='utf-8') as f:
-        json.dump(data, f, indent=4, ensure_ascii=False)
-
-@app.route('/insights', methods=['GET'])
-def get_insights():
+@app.route('/patterns', methods=['GET'])
+def get_patterns():
     data = load_data()
     insights = data.get('insights', [])
 
-    # Apply filters
-    confidence = request.args.get('confidence')
-    significance = request.args.get('significance')
-    readiness = request.args.get('readiness')
-    relevance_to = request.args.get('relevance_to')
-    limit = int(request.args.get('limit', 100))
-    offset = int(request.args.get('offset', 0))
+    if not insights:
+        return jsonify({"message": "No insights data available."})
 
-    filtered = insights
-    if confidence:
-        filtered = [i for i in filtered if i.get('confidence') == confidence]
-    if significance:
-        filtered = [i for i in filtered if i.get('significance') == significance]
-    if readiness:
-        filtered = [i for i in filtered if i.get('readiness') == readiness]
-    if relevance_to:
-        filtered = [i for i in filtered if i.get('relevance_to') == relevance_to]
+    # Analyze patterns based on relevance_to, significance, confidence, readiness
+    relevance_counter = Counter()
+    high_value_counter = Counter()
+    new_readiness_counter = Counter()
 
-    return jsonify(filtered[offset:offset + limit])
+    for insight in insights:
+        relevance = insight.get('relevance_to', 'Unknown')
+        significance = insight.get('significance', '0')
+        confidence = insight.get('confidence', 'Low')
+        readiness = insight.get('readiness', 'New')
 
-@app.route('/insights', methods=['POST'])
-def add_insight():
-    new_insight = request.json
-    data = load_data()
-    data['insights'].append(new_insight)
-    save_data(data)
-    return jsonify({"message": "Insight added successfully!"}), 201
+        relevance_counter[relevance] += 1
+        if significance == '5' and confidence == 'High':
+            high_value_counter[relevance] += 1
+        if readiness == 'New':
+            new_readiness_counter[relevance] += 1
 
-@app.route('/insights/<insight_id>', methods=['DELETE'])
-def delete_insight(insight_id):
-    data = load_data()
-    original_len = len(data['insights'])
-    data['insights'] = [i for i in data['insights'] if i.get('id') != insight_id]
-    if len(data['insights']) < original_len:
-        save_data(data)
-        return jsonify({"message": "Insight deleted successfully!"})
-    else:
-        return jsonify({"message": "Insight not found."}), 404
+    # Define thresholds for pattern detection
+    emerging_threshold = 5
+    high_value_threshold = 3
+    neglected_threshold = 0
+
+    patterns_report = {
+        "emerging_topics": [topic for topic, count in relevance_counter.items() if count >= emerging_threshold],
+        "high_value_topics": [topic for topic, count in high_value_counter.items() if count >= high_value_threshold],
+        "neglected_topics": [topic for topic, count in relevance_counter.items() if count <= neglected_threshold]
+    }
+
+    return jsonify(patterns_report)
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 10000))
