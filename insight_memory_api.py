@@ -20,7 +20,27 @@ def save_data(data):
 @app.route('/insights', methods=['GET'])
 def get_insights():
     data = load_data()
-    return jsonify(data.get('insights', []))
+    insights = data.get('insights', [])
+
+    # Apply filters
+    confidence = request.args.get('confidence')
+    significance = request.args.get('significance')
+    readiness = request.args.get('readiness')
+    relevance_to = request.args.get('relevance_to')
+    limit = int(request.args.get('limit', 100))
+    offset = int(request.args.get('offset', 0))
+
+    filtered = insights
+    if confidence:
+        filtered = [i for i in filtered if i.get('confidence') == confidence]
+    if significance:
+        filtered = [i for i in filtered if i.get('significance') == significance]
+    if readiness:
+        filtered = [i for i in filtered if i.get('readiness') == readiness]
+    if relevance_to:
+        filtered = [i for i in filtered if i.get('relevance_to') == relevance_to]
+
+    return jsonify(filtered[offset:offset + limit])
 
 @app.route('/insights', methods=['POST'])
 def add_insight():
