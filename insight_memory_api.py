@@ -1,4 +1,3 @@
-
 from flask import Flask, request, jsonify
 import json
 import os
@@ -14,6 +13,34 @@ def load_data():
     with open(DATA_FILE, 'r', encoding='utf-8') as f:
         return json.load(f)
 
+def save_data(data):
+    with open(DATA_FILE, 'w', encoding='utf-8') as f:
+        json.dump(data, f, indent=4, ensure_ascii=False)
+
+@app.route('/insights', methods=['GET'])
+def get_insights():
+    data = load_data()
+    return jsonify(data.get('insights', []))
+
+@app.route('/insights', methods=['POST'])
+def add_insight():
+    new_insight = request.json
+    data = load_data()
+    data['insights'].append(new_insight)
+    save_data(data)
+    return jsonify({"message": "Insight added successfully!"}), 201
+
+@app.route('/insights/<insight_id>', methods=['DELETE'])
+def delete_insight(insight_id):
+    data = load_data()
+    original_len = len(data['insights'])
+    data['insights'] = [i for i in data['insights'] if i.get('id') != insight_id]
+    if len(data['insights']) < original_len:
+        save_data(data)
+        return jsonify({"message": "Insight deleted successfully!"})
+    else:
+        return jsonify({"message": "Insight not found."}), 404
+
 @app.route('/patterns', methods=['GET'])
 def get_patterns():
     data = load_data()
@@ -22,7 +49,6 @@ def get_patterns():
     if not insights:
         return jsonify({"message": "No insights data available."})
 
-    # Analyze patterns based on relevance_to, significance, confidence, readiness
     relevance_counter = Counter()
     high_value_counter = Counter()
     new_readiness_counter = Counter()
@@ -39,7 +65,6 @@ def get_patterns():
         if readiness == 'New':
             new_readiness_counter[relevance] += 1
 
-    # Define thresholds for pattern detection
     emerging_threshold = 5
     high_value_threshold = 3
     neglected_threshold = 0
