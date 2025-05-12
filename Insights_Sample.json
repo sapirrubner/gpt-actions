@@ -8,12 +8,12 @@
             "relevance_to": "Time Management",
             "confidence": "New",
             "significance": "תוספות נוספות כאן",
-            "readiness": NaN,
-            "iteration_count": NaN,
-            "origin": NaN,
-            "linked_bots": NaN,
-            "tags": NaN,
-            "notes": NaN
+            "readiness": null,
+            "iteration_count": null,
+            "origin": null,
+            "linked_bots": null,
+            "tags": null,
+            "notes": null
         },
         {
             "id": "insight-1",
@@ -21,10 +21,10 @@
             "type": "Bot",
             "summary": "Default Summary",
             "relevance_to": "General Use",
-            "confidence": NaN,
-            "significance": NaN,
+            "confidence": null,
+            "significance": null,
             "readiness": "New",
-            "iteration_count": NaN,
+            "iteration_count": null,
             "origin": "Manual Entry",
             "linked_bots": "None",
             "tags": "General",
@@ -43,7 +43,7 @@
             "origin": "ManualTest",
             "linked_bots": "בדיקת POST עם שדות מלאים.",
             "tags": "Test,Verification",
-            "notes": NaN
+            "notes": null
         }
     ]
 }
