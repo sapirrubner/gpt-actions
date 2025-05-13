@@ -3,11 +3,11 @@
   "info": {
     "title": "MultiLayer GPT Manager API",
     "version": "1.0.1",
-    "description": "Unified API for managing system insights and user memory with a single endpoint."
+    "description": "Unified API for managing system insights and user memory."
   },
   "servers": [
     {
-      "url": "https://script.google.com/macros/s/AKfycbw9K9xqtcP8QIsJuDanD_tePa22AtRA1u6b8m-PIP-hT87Cis-rHDmAfQmf--YV7aD7Dg/exec"
+      "url": "https://raw.githubusercontent.com/sapirrubner/gpt-actions/main/openapi.json"
     }
   ],
   "paths": {
@@ -43,7 +43,7 @@
               "type": "string",
               "enum": ["insight", "user_memory"]
             },
-            "description": "Specify which data to retrieve: 'insight' or 'user_memory'."
+            "description": "Specify which data to retrieve."
           }
         ],
         "responses": {
