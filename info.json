@@ -1,0 +1,16 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "MultiLayer GPT Manager",
+  "name_for_model": "multi_layer_gpt_manager",
+  "description_for_human": "Manage structured insights and user memory directly from GPT conversations.",
+  "description_for_model": "Handles system insights and user preferences through unified API actions. Supports data storage and retrieval via route-based operations.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "https://raw.githubusercontent.com/sapirrubner/gpt-actions/main/openapi.json"
+  },
+  "contact_email": "support@yourdomain.com",
+  "legal_info_url": "https://yourdomain.com/legal"
+}
