@@ -1,0 +1,116 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "MultiLayer GPT Manager API",
+    "version": "1.0.1",
+    "description": "Unified API for managing system insights and user memory with a single endpoint."
+  },
+  "servers": [
+    {
+      "url": "https://script.google.com/macros/s/AKfycbw9K9xqtcP8QIsJuDanD_tePa22AtRA1u6b8m-PIP-hT87Cis-rHDmAfQmf--YV7aD7Dg/exec"
+    }
+  ],
+  "paths": {
+    "/": {
+      "post": {
+        "operationId": "saveData",
+        "summary": "Save either an insight or user memory entry. 'route' field is required.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UnifiedEntry"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Data saved successfully."
+          }
+        }
+      },
+      "get": {
+        "operationId": "getData",
+        "summary": "Retrieve stored data based on 'route' parameter.",
+        "parameters": [
+          {
+            "name": "route",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["insight", "user_memory"]
+            },
+            "description": "Specify which data to retrieve: 'insight' or 'user_memory'."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Data retrieved successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UnifiedEntry"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "UnifiedEntry": {
+        "type": "object",
+        "properties": {
+          "route": { 
+            "type": "string", 
+            "enum": ["insight", "user_memory"], 
+            "description": "Specify whether this entry is an 'insight' or 'user_memory'." 
+          },
+          "summary": { "type": "string", "description": "For insights only: concise summary." },
+          "engine": { 
+            "type": "string", 
+            "enum": ["MetaManager", "CritiqueEngine", "VerifierEngine", "InnovationEngine"],
+            "description": "For insights only: engine that generated this insight."
+          },
+          "confidence": { 
+            "type": "string", 
+            "enum": ["High", "Medium", "Low"],
+            "description": "Confidence level for both insights and user memory." 
+          },
+          "significance": { 
+            "type": "integer", 
+            "minimum": 1, 
+            "maximum": 5,
+            "description": "For insights only: significance level (1-5)." 
+          },
+          "readiness": { 
+            "type": "string", 
+            "enum": ["New", "Maturing", "Ready"],
+            "description": "For insights only: readiness status." 
+          },
+          "description": { 
+            "type": "string", 
+            "description": "For user_memory only: description of the user preference or personal fact." 
+          },
+          "relevanceTo": { 
+            "type": "string", 
+            "description": "For user_memory only: relevant bot name or 'AllBots'." 
+          },
+          "notes": { 
+            "type": "string", 
+            "description": "Additional notes for user memory." 
+          }
+        },
+        "required": ["route", "confidence"]
+      }
+    }
+  }
+}
